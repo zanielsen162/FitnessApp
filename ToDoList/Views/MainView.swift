@@ -1,11 +1,12 @@
 //
-//  ContentView.swift
+//  MainView.swift
 //  ToDoList
 //
-//  Created by Zoey Nielsen on 9/10/24.
+//  Created by Zoey Nielsen on 9/20/24.
 //
 
 import SwiftUI
+
 import SwiftData
 
 
@@ -16,13 +17,13 @@ struct MainView: View {
         if viewModel.isSignedIn, !viewModel.currentUserId.isEmpty {
             // signed in
             TabView {
-                ToDoListView(userId: viewModel.currentUserId)
+                SummaryView()
                     .tabItem {
                         Label("Home", systemImage: "house")
                     }
-                StartedWorkoutView()
+                StartWorkoutView()
                     .tabItem {
-                        Label("New Workout", systemImage: "play.circle")
+                        Label("Start Workout", systemImage: "play.circle.fill")
                     }
                 ProfileView()
                     .tabItem {
@@ -35,8 +36,6 @@ struct MainView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainView()
-    }
+#Preview {
+    MainView()
 }

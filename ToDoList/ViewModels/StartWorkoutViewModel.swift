@@ -1,14 +1,14 @@
 //
-//  ToDoListViewModel.swift
+//  StartWorkoutViewModel.swift
 //  ToDoList
 //
-//  Created by Zoey Nielsen on 9/10/24.
+//  Created by Zoey Nielsen on 9/20/24.
 //
 
 import FirebaseFirestore
 import Foundation
 
-class ToDoListViewModel: ObservableObject {
+class StartWorkoutViewModel: ObservableObject {
     @Published var showingNewItemView = false
     
     private let userId: String

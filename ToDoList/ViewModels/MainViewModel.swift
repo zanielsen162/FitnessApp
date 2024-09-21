@@ -2,7 +2,7 @@
 //  MainViewModel.swift
 //  ToDoList
 //
-//  Created by Zoey Nielsen on 9/10/24.
+//  Created by Zoey Nielsen on 9/20/24.
 //
 
 import Foundation
@@ -14,7 +14,7 @@ class MainViewModel: ObservableObject {
     private var handler: AuthStateDidChangeListenerHandle?
     
     init() {
-        self.handler = Auth.auth().addStateDidChangeListener { [weak self] _, user in 
+        self.handler = Auth.auth().addStateDidChangeListener { [weak self] _, user in
             DispatchQueue.main.async {
                 self?.currentUserId = user?.uid ?? ""
             }
