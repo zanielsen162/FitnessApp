@@ -13,7 +13,7 @@ class ExerciseItemViewModel: ObservableObject {
     init() {}
     
     func toggleIsDone(item: ExerciseItem) {
-        var itemCopy = item
+        let itemCopy = item
         
         guard let uid = Auth.auth().currentUser?.uid else {
             return
@@ -22,7 +22,7 @@ class ExerciseItemViewModel: ObservableObject {
         let db = Firestore.firestore()
         db.collection("users")
             .document(uid)
-            .collection("workouts")
+            .collection("completed_workouts")
             .document(itemCopy.id)
             .setData(itemCopy.asDictionary())
     }

@@ -20,7 +20,10 @@
 		FB659B5F2C9E4DDF00D62AD0 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB659B5E2C9E4DDF00D62AD0 /* RegisterViewModel.swift */; };
 		FB659B612C9E5E1100D62AD0 /* StartWorkoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB659B602C9E5E1100D62AD0 /* StartWorkoutViewModel.swift */; };
 		FB659B632C9F8B8300D62AD0 /* ExerciseItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB659B622C9F8B8300D62AD0 /* ExerciseItemViewModel.swift */; };
-		FB66D6A02C912AFB0069EA0E /* ToDoListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB66D69F2C912AFB0069EA0E /* ToDoListApp.swift */; };
+		FB659B652CA1D68100D62AD0 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB659B642CA1D68100D62AD0 /* Workout.swift */; };
+		FB659B672CA1D6DC00D62AD0 /* WorkoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB659B662CA1D6DC00D62AD0 /* WorkoutViewModel.swift */; };
+		FB659B6B2CA22D7B00D62AD0 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB659B6A2CA22D7B00D62AD0 /* ProfileViewModel.swift */; };
+		FB66D6A02C912AFB0069EA0E /* WorkoutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB66D69F2C912AFB0069EA0E /* WorkoutApp.swift */; };
 		FB66D6A42C912AFB0069EA0E /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB66D6A32C912AFB0069EA0E /* Item.swift */; };
 		FB66D6A62C912AFE0069EA0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB66D6A52C912AFE0069EA0E /* Assets.xcassets */; };
 		FB66D6A92C912AFE0069EA0E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB66D6A82C912AFE0069EA0E /* Preview Assets.xcassets */; };
@@ -51,8 +54,11 @@
 		FB659B5E2C9E4DDF00D62AD0 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		FB659B602C9E5E1100D62AD0 /* StartWorkoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWorkoutViewModel.swift; sourceTree = "<group>"; };
 		FB659B622C9F8B8300D62AD0 /* ExerciseItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseItemViewModel.swift; sourceTree = "<group>"; };
-		FB66D69C2C912AFB0069EA0E /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		FB66D69F2C912AFB0069EA0E /* ToDoListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListApp.swift; sourceTree = "<group>"; };
+		FB659B642CA1D68100D62AD0 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
+		FB659B662CA1D6DC00D62AD0 /* WorkoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewModel.swift; sourceTree = "<group>"; };
+		FB659B6A2CA22D7B00D62AD0 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		FB66D69C2C912AFB0069EA0E /* WorkoutApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkoutApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB66D69F2C912AFB0069EA0E /* WorkoutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutApp.swift; sourceTree = "<group>"; };
 		FB66D6A32C912AFB0069EA0E /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		FB66D6A52C912AFE0069EA0E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FB66D6A82C912AFE0069EA0E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -83,7 +89,7 @@
 		FB66D6932C912AFB0069EA0E = {
 			isa = PBXGroup;
 			children = (
-				FB66D69E2C912AFB0069EA0E /* ToDoList */,
+				FB66D69E2C912AFB0069EA0E /* WorkoutApp */,
 				FB66D69D2C912AFB0069EA0E /* Products */,
 				FBEA42432C98B45900B0DA37 /* Frameworks */,
 			);
@@ -92,12 +98,12 @@
 		FB66D69D2C912AFB0069EA0E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FB66D69C2C912AFB0069EA0E /* ToDoList.app */,
+				FB66D69C2C912AFB0069EA0E /* WorkoutApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		FB66D69E2C912AFB0069EA0E /* ToDoList */ = {
+		FB66D69E2C912AFB0069EA0E /* WorkoutApp */ = {
 			isa = PBXGroup;
 			children = (
 				FB66D6BF2C9134110069EA0E /* Other */,
@@ -107,7 +113,7 @@
 				FB66D6A32C912AFB0069EA0E /* Item.swift */,
 				FB66D6A72C912AFE0069EA0E /* Preview Content */,
 			);
-			path = ToDoList;
+			path = WorkoutApp;
 			sourceTree = "<group>";
 		};
 		FB66D6A72C912AFE0069EA0E /* Preview Content */ = {
@@ -141,6 +147,8 @@
 				FB659B5E2C9E4DDF00D62AD0 /* RegisterViewModel.swift */,
 				FB659B602C9E5E1100D62AD0 /* StartWorkoutViewModel.swift */,
 				FB659B622C9F8B8300D62AD0 /* ExerciseItemViewModel.swift */,
+				FB659B662CA1D6DC00D62AD0 /* WorkoutViewModel.swift */,
+				FB659B6A2CA22D7B00D62AD0 /* ProfileViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -150,6 +158,7 @@
 			children = (
 				FB66D6CC2C9135C50069EA0E /* User.swift */,
 				FBAB3DA62C9BBC870091EABC /* ExerciseItem.swift */,
+				FB659B642CA1D68100D62AD0 /* Workout.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -159,7 +168,7 @@
 			children = (
 				FB66D6A52C912AFE0069EA0E /* Assets.xcassets */,
 				FB66D6BA2C91314E0069EA0E /* GoogleService-Info.plist */,
-				FB66D69F2C912AFB0069EA0E /* ToDoListApp.swift */,
+				FB66D69F2C912AFB0069EA0E /* WorkoutApp.swift */,
 				FBEA42482C98DA8C00B0DA37 /* Extensions.swift */,
 			);
 			path = Other;
@@ -175,9 +184,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FB66D69B2C912AFB0069EA0E /* ToDoList */ = {
+		FB66D69B2C912AFB0069EA0E /* WorkoutApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FB66D6AC2C912AFE0069EA0E /* Build configuration list for PBXNativeTarget "ToDoList" */;
+			buildConfigurationList = FB66D6AC2C912AFE0069EA0E /* Build configuration list for PBXNativeTarget "WorkoutApp" */;
 			buildPhases = (
 				FB66D6982C912AFB0069EA0E /* Sources */,
 				FB66D6992C912AFB0069EA0E /* Frameworks */,
@@ -187,7 +196,7 @@
 			);
 			dependencies = (
 			);
-			name = ToDoList;
+			name = WorkoutApp;
 			packageProductDependencies = (
 				FB66D6B02C912F740069EA0E /* FirebaseAnalytics */,
 				FB66D6B22C912F740069EA0E /* FirebaseAnalyticsOnDeviceConversion */,
@@ -198,7 +207,7 @@
 				FBEA42462C98DA0F00B0DA37 /* FirebaseFirestore */,
 			);
 			productName = ToDoList;
-			productReference = FB66D69C2C912AFB0069EA0E /* ToDoList.app */;
+			productReference = FB66D69C2C912AFB0069EA0E /* WorkoutApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -216,7 +225,7 @@
 					};
 				};
 			};
-			buildConfigurationList = FB66D6972C912AFB0069EA0E /* Build configuration list for PBXProject "ToDoList" */;
+			buildConfigurationList = FB66D6972C912AFB0069EA0E /* Build configuration list for PBXProject "WorkoutApp" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -232,7 +241,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FB66D69B2C912AFB0069EA0E /* ToDoList */,
+				FB66D69B2C912AFB0069EA0E /* WorkoutApp */,
 			);
 		};
 /* End PBXProject section */
@@ -259,7 +268,9 @@
 				FB659B5B2C9E4DAE00D62AD0 /* TLButton.swift in Sources */,
 				FB659B4D2C9E4A4300D62AD0 /* MainViewModel.swift in Sources */,
 				FB659B5F2C9E4DDF00D62AD0 /* RegisterViewModel.swift in Sources */,
+				FB659B672CA1D6DC00D62AD0 /* WorkoutViewModel.swift in Sources */,
 				FB659B592C9E4BF300D62AD0 /* RegisterView.swift in Sources */,
+				FB659B6B2CA22D7B00D62AD0 /* ProfileViewModel.swift in Sources */,
 				FB66D6A42C912AFB0069EA0E /* Item.swift in Sources */,
 				FB659B532C9E4ADC00D62AD0 /* StartWorkoutView.swift in Sources */,
 				FB659B4B2C9E493700D62AD0 /* MainView.swift in Sources */,
@@ -271,7 +282,8 @@
 				FB659B5D2C9E4DC800D62AD0 /* HeaderView.swift in Sources */,
 				FB659B572C9E4BBB00D62AD0 /* LoginViewModel.swift in Sources */,
 				FB659B552C9E4B1F00D62AD0 /* LoginView.swift in Sources */,
-				FB66D6A02C912AFB0069EA0E /* ToDoListApp.swift in Sources */,
+				FB66D6A02C912AFB0069EA0E /* WorkoutApp.swift in Sources */,
+				FB659B652CA1D68100D62AD0 /* Workout.swift in Sources */,
 				FB659B512C9E4AD200D62AD0 /* SummaryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -405,10 +417,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ToDoList/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"WorkoutApp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "To Do List";
+				INFOPLIST_KEY_CFBundleDisplayName = "Workout App";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -434,10 +446,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ToDoList/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"WorkoutApp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "To Do List";
+				INFOPLIST_KEY_CFBundleDisplayName = "Workout App";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -459,7 +471,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		FB66D6972C912AFB0069EA0E /* Build configuration list for PBXProject "ToDoList" */ = {
+		FB66D6972C912AFB0069EA0E /* Build configuration list for PBXProject "WorkoutApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FB66D6AA2C912AFE0069EA0E /* Debug */,
@@ -468,7 +480,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FB66D6AC2C912AFE0069EA0E /* Build configuration list for PBXNativeTarget "ToDoList" */ = {
+		FB66D6AC2C912AFE0069EA0E /* Build configuration list for PBXNativeTarget "WorkoutApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FB66D6AD2C912AFE0069EA0E /* Debug */,

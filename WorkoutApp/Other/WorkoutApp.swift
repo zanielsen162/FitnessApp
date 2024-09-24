@@ -8,8 +8,10 @@
 import SwiftUI
 import FirebaseCore
 
+
 @main
-struct ToDoListApp: App {
+struct WorkoutApp: App {
+    
     init() {
         FirebaseApp.configure()
     }

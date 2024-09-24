@@ -6,8 +6,8 @@
 //
 
 import SwiftUI
-
 import SwiftData
+import FirebaseFirestore
 
 
 struct MainView: View {
@@ -16,12 +16,13 @@ struct MainView: View {
     var body: some View {
         if viewModel.isSignedIn, !viewModel.currentUserId.isEmpty {
             // signed in
+            
             TabView {
-                SummaryView()
+                SummaryView(userId: viewModel.currentUserId)
                     .tabItem {
                         Label("Home", systemImage: "house")
                     }
-                StartWorkoutView()
+                StartWorkoutView(userId: viewModel.currentUserId)
                     .tabItem {
                         Label("Start Workout", systemImage: "play.circle.fill")
                     }
@@ -33,6 +34,8 @@ struct MainView: View {
         } else {
             LoginView()
         }
+        
+        
     }
 }
 
