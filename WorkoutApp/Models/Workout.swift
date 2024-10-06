@@ -14,6 +14,7 @@ struct Workout: Codable, Identifiable {
     var name: String
     var routine: [ExerciseItem]
     var dateCreated: Date
+    var runTime: String
     
     var formattedDate: String {
         let formatter = DateFormatter()
@@ -22,11 +23,13 @@ struct Workout: Codable, Identifiable {
     }
     
     // Main initializer
-    init(id: String, name: String, dateCreated: Date, routine: [ExerciseItem]) {
+    init(id: String, name: String, dateCreated: Date, routine: [ExerciseItem], runTime: String) {
         self.id = id
         self.dateCreated = dateCreated
         self.name = name
         self.routine = routine
+        self.runTime = runTime
+        
     }
     
     // Overloaded initializer
@@ -35,6 +38,7 @@ struct Workout: Codable, Identifiable {
         self.name = initName
         self.dateCreated = Date() // Set current date
         self.routine = [] // Initialize empty routine
+        self.runTime = "00:00:00"
     }
 
     // Method to add an exercise

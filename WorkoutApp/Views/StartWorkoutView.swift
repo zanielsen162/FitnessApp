@@ -15,7 +15,8 @@ struct StartWorkoutView: View {
     init(userId: String) {
         self.userId = userId
         self._exercises = FirestoreQuery(
-            collectionPath: "users/\(userId)/completed_workouts")
+            collectionPath: "users/\(userId)/completed_workouts"
+        )
     }
 
     @State var workoutStarted: Bool = false
@@ -31,112 +32,47 @@ struct StartWorkoutView: View {
     @State var inReps: [Double] = []
     
     @State var showNew: Bool = false
+    
     @State var playPause = "play.circle"
+    @State var workoutRunTime = 0
+    @State var displayWorkoutRunTime = "00:00:00"
+    @State var stopwatch: Timer? = nil
+    @State var startTime: Int = 0  // Track when the stopwatch starts
+    @State var accumulatedTime: Int = 0
     
     @State var selectedPreviewExercise: String? = nil
     
     var body: some View {
         ScrollView {
-            VStack{
+            VStack {
                 TextField("New Workout", text: $tempWorkoutName)
                     .font(.system(size: 40))
                     .bold()
+                
                 HStack {
                     Text("Time Elapsed:")
                         .font(.system(size: 20))
-                    Text("00:00:00")
+                    Text(displayWorkoutRunTime)
                         .font(.system(size: 20))
+                    
                     Button {
                         playPause = (playPause == "play.circle") ? "pause.circle" : "play.circle"
+                        toggleStopwatch()
                     } label: {
                         Image(systemName: playPause)
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
-                
-                VStack{
-                    Button {
-                        showNew.toggle()
-                    } label: {
-                        HStack{
-                            Text("New Exercise")
-                            Spacer()
-                            Image(systemName: "plus.app")
-                        }
-                    }
-                    .padding()
-                    .buttonStyle(.borderedProminent)
-                    .tint(.orange)
-                    
-                    if showNew {
-                        VStack {
-                            HStack{
-                                TextField("Exercise Name", text: $tempExercise)
-                                Spacer()
-                                
-                                Text(String(tempSets))
-                                HStack(spacing: 0){
-                                    Button {
-                                        tempSets += 1
-                                        inWeight.append(0)
-                                        inReps.append(0)
-                                    } label: {
-                                        Image(systemName: "plus.app")
-                                            .foregroundColor(.gray)
-                                    }
-                                    Button {
-                                        inWeight.removeLast()
-                                        inReps.removeLast()
-                                        tempSets = max(tempSets - 1, 0)
-                                    } label: {
-                                        Image(systemName: "minus.square")
-                                            .foregroundColor(.gray)
-                                    }
-                                }
-                                Button {
-                                    tempReps = inReps
-                                    tempWeight = inWeight
-                                    
-                                    // Create new workout to save exercise to
-                                    if !workoutStarted {
-                                        workoutStarted = true
-                                        newWorkout = Workout(initName: "")
-                                        newWorkout.name = tempWorkoutName
-                                    }
-                                    
-                                    // add the exercise to the current workout
-                                    newWorkout.routine.append(ExerciseItem(id: tempExercise, sets: tempSets, reps: tempReps, weight: tempWeight))
-                                    
-                                    // reset
-                                    inReps = []
-                                    inWeight = []
-                                    tempSets = 0
-                                    tempExercise = ""
-                                } label: {
-                                    Image(systemName:"text.insert")
-                                }
-                                .buttonStyle(.bordered)
-                                .tint(.purple)
-                            }
-                            
-                            ForEach(0..<tempSets, id: \.self) { index in
-                                HStack {
-                                    TextField("Weight", value: $inWeight[index], format: .number)
-                                        .keyboardType(.numberPad)
-                                                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    Text("lbs")
-                                    TextField("Reps", value: $inReps[index], format: .number)
-                                        .keyboardType(.numberPad)
-                                                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                                }
-                            }
-                        }
-                        .padding([.leading, .trailing], 30)
-                
-                    }
+                VStack {
+                    // allow for the new exercise to be set up
+                    newExercise()
+                    // take the input for each exercise
+                    inputSets()
                 }
+                .padding([.leading, .trailing], 10)
                 
+                // view and modify previously added exercises
                 VStack {
                     ForEach($newWorkout.routine) { $item in
                         Button {
@@ -145,7 +81,7 @@ struct StartWorkoutView: View {
                             HStack {
                                 Text(item.id)
                                 Spacer()
-                                Text(String(item.sets) + " sets")
+                                Text("\(item.sets) sets")
                             }
                         }
                         .padding([.leading, .trailing], 30)
@@ -159,13 +95,12 @@ struct StartWorkoutView: View {
                                     HStack {
                                         Spacer()
                                         TextField("Weight", value: $item.weight[setIndex], format: .number)
-                                        .keyboardType(.decimalPad)
-                                        .frame(width: 80)
-                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                            .keyboardType(.decimalPad)
+                                            .frame(width: 80)
+                                            .textFieldStyle(RoundedBorderTextFieldStyle())
                                         
                                         Text("lbs x")
                                         
-                                        // Editable TextField for reps
                                         TextField("Reps", value: $item.reps[setIndex], format: .number)
                                             .keyboardType(.numberPad)
                                             .frame(width: 80)
@@ -175,6 +110,35 @@ struct StartWorkoutView: View {
                                     .padding([.leading, .trailing], 30)
                                     .padding([.top, .bottom], 5)
                                 }
+                                
+                                HStack {
+                                    Button {
+                                        item.sets += 1
+                                        item.weight.append(0)
+                                        item.reps.append(0)
+                                    } label: {
+                                        HStack{
+                                            Text("Add Set")
+                                            Image(systemName: "plus.app")
+                                        }
+                                    }
+                                    
+                                    Text(" / ")
+                                    
+                                    Button {
+                                        guard !item.weight.isEmpty else {
+                                            return
+                                        }
+                                        item.sets -= 1
+                                        item.weight.removeLast()
+                                        item.reps.removeLast()
+                                    } label: {
+                                        HStack{
+                                            Text("Remove Set")
+                                            Image(systemName: "minus.square")
+                                        }
+                                    }
+                                }
                             }
                             .padding(.top, 10)
                         }
@@ -182,7 +146,7 @@ struct StartWorkoutView: View {
                 }
                 .padding(.top, 3)
                 
-                
+                // finish the workout by storing it in the database
                 Button {
                     newWorkout.name = tempWorkoutName
                     let db = Firestore.firestore()
@@ -196,26 +160,140 @@ struct StartWorkoutView: View {
                             "id": newWorkout.id,
                             "name": newWorkout.name,
                             "dateCreated": newWorkout.dateCreated,
-                            "routine": routineData
+                            "routine": routineData,
+                            "runTime": displayWorkoutRunTime
                         ])
-
+                    
                     newWorkout = Workout(initName: "")
                     workoutStarted = false
+                    stopStopwatch()
                 } label: {
                     Text("Finish Workout")
                 }
                 .padding()
                 .buttonStyle(.borderedProminent)
                 .tint(.purple)
-                
-                
             }
             .padding()
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
     }
+    
+    func startStopwatch() {
+        if stopwatch == nil {
+            startTime = accumulatedTime
+            
+            stopwatch = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                updateStopwatch()
+            }
+        }
+    }
+    
+    func pauseStopwatch() {
+        // Invalidate the current timer
+        stopwatch?.invalidate()
+        stopwatch = nil
+    }
+    
+    func stopStopwatch() {
+        stopwatch?.invalidate()
+        stopwatch = nil
+        startTime = 0
+        accumulatedTime = 0
+        displayWorkoutRunTime = "00:00:00"
+        playPause = "play.circle"
+    }
+    
+    // Update stopwatch method
+    func updateStopwatch() {
+        // Calculate the total elapsed time including the previously accumulated time
+        accumulatedTime = accumulatedTime + 1
+        
+        // Format the elapsed time as hours, minutes, and seconds
+        let hours = Int(accumulatedTime) / 3600
+        let minutes = (Int(accumulatedTime) % 3600) / 60
+        let seconds = Int(accumulatedTime) % 60
+
+        // Update the displayed run time
+        displayWorkoutRunTime = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+    }
+    
+    func toggleStopwatch() {
+        if stopwatch == nil {
+            startStopwatch()  // Resume or start
+        } else {
+            pauseStopwatch()  // Pause
+        }
+    }
+    
+    @ViewBuilder
+    func newExercise() -> some View {
+        HStack {
+            TextField("Exercise Name", text: $tempExercise)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+            Spacer()
+            
+            Text(String(tempSets))
+            HStack(spacing: 0) {
+                Button {
+                    tempSets += 1
+                    inWeight.append(0)
+                    inReps.append(0)
+                } label: {
+                    Image(systemName: "plus.app")
+                        .foregroundColor(.gray)
+                }
+                Button {
+                    guard !inWeight.isEmpty else {
+                        return
+                    }
+                    inWeight.removeLast()
+                    inReps.removeLast()
+                    tempSets = max(tempSets - 1, 0)
+                } label: {
+                    Image(systemName: "minus.square")
+                        .foregroundColor(.gray)
+                }
+            }
+            Button {
+                tempReps = inReps
+                tempWeight = inWeight
+                if !workoutStarted {
+                    workoutStarted = true
+                    newWorkout = Workout(initName: "")
+                    newWorkout.name = tempWorkoutName
+                }
+                newWorkout.routine.append(ExerciseItem(id: tempExercise, sets: tempSets, reps: tempReps, weight: tempWeight))
+                inReps = []
+                inWeight = []
+                tempSets = 0
+                tempExercise = ""
+            } label: {
+                Image(systemName: "text.insert")
+            }
+            .buttonStyle(.bordered)
+            .tint(.purple)
+        }
+        .padding(.top, 20)
+    }
+    
+    @ViewBuilder
+    func inputSets() -> some View {
+        ForEach(0..<tempSets, id: \.self) { index in
+            HStack {
+                TextField("Weight", value: $inWeight[index], format: .number)
+                    .keyboardType(.numberPad)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                Text("lbs")
+                TextField("Reps", value: $inReps[index], format: .number)
+                    .keyboardType(.numberPad)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+            }
+        }
+    }
 }
+
 
 #Preview {
     StartWorkoutView(userId: "3gBkVCZYxDdACmVZP1WKvnawrmw1")
