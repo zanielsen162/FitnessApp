@@ -13,6 +13,11 @@ This app is designed to help users track their lifting sessions, monitor their p
 - **Firebase Firestore Integration**: Workouts are saved to Firebase Firestore under the user's profile, making the data persistent and retrievable across sessions.
 - **Completion and Storage**: Once a workout is finished, the routine, time elapsed, and other details are stored in the Firestore database for future reference.
 
+## Upcoming Features
+
+- **Rest timer**: Allows users to set a custom time for their rest period and start the timer in between sets.
+- **Schedule and Plan Workouts**: Users can premake workouts ahead of time and schedule them for certain days.
+
 ## How It Works
 
 1. **Start a Workout**: Users can enter the name of a workout and begin tracking the exercises they perform.
@@ -26,15 +31,3 @@ This app is designed to help users track their lifting sessions, monitor their p
 - **SwiftUI**: Provides the user interface and layout of the app.
 - **Firebase Firestore**: Used to store workout data in the cloud.
 - **State Management**: Uses `@State` and `@FirestoreQuery` to manage the dynamic UI and data updates.
-
-## Setup
-
-1. Clone the repository.
-2. Install Firebase dependencies in your project.
-3. Set up a Firebase project and add Firestore database.
-4. Run the app on an iOS simulator or device.
-
-## Upcoming Features
-
-- **Rest timer**: Allows users to set a custom time for their rest period and start the timer in between sets.
-- **Schedule and Plan Workouts**: Users can premake workouts ahead of time and schedule them for certain days.
