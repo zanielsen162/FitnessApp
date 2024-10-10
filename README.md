@@ -34,8 +34,7 @@ This app is designed to help users track their lifting sessions, monitor their p
 3. Set up a Firebase project and add Firestore database.
 4. Run the app on an iOS simulator or device.
 
----
 ## Upcoming Features
+
 - **Rest timer**: Allows users to set a custom time for their rest period and start the timer in between sets.
 - **Schedule and Plan Workouts**: Users can premake workouts ahead of time and schedule them for certain days.
----
